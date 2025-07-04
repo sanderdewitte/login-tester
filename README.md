@@ -1,6 +1,6 @@
 # Login Tester
 
-This script automates login testing using real user passwords by interacting with the `login` command via `expect`. It is useful for verifying that password hashes written to `/etc/shadow` (e.g. by Puppet) work as intended.
+This script automates login testing using real user passwords by interacting with the `login` command via `expect`. It is useful for verifying that password hashes written to `/etc/shadow` work as intended.
 
 ## 🔧 Requirements
 
