@@ -32,10 +32,10 @@ This script automates login testing using real user passwords by interacting wit
 
 3. Output will look like:
    ```
-   🔐 Testing login for user: root
-   ✅ Login succeeded for root
-   🔐 Testing login for user: someuser
-   ❌ Login failed for someuser
+   🔐 Testing login for user: user1
+   ✅ Login succeeded for user1
+   🔐 Testing login for user: user2
+   ❌ Login failed for user2
    ```
 
 > The script suppresses all MOTD, shell banners, and system output. Only test results are shown.
