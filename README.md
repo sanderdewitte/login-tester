@@ -20,8 +20,8 @@ This script automates login testing using real user passwords by interacting wit
 1. Open `test_logins.exp` and update the `set users` block with the usernames and passwords you want to test:
    ```tcl
    set users {
-     {root verysecret123}
-     {someuser verysecret456}
+     {user1 verysecret123}
+     {user2 verysecret456}
    }
    ```
 
