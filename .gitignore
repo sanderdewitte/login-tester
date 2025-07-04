@@ -1,0 +1,10 @@
+---
+
+## 📄 `.gitignore`
+
+```gitignore
+# OS / editor junk
+.DS_Store
+*.swp
+*.swo
+*.bak

@@ -1,0 +1,45 @@
+#!/usr/bin/expect -f
+
+log_user 0 ;# Disable all automatic output from spawn
+set timeout 5
+
+# User/password pairs to test
+set users {
+  {user1 verysecret123}
+  {user2 verysecret456}
+}
+
+foreach userpass $users {
+  lassign $userpass username password
+  puts "🔐 Testing login for user: $username"
+
+  # Capture just result, silence the rest
+  spawn login $username
+
+  expect {
+    "Password:" {
+      send "$password\r"
+      expect {
+        -re {\r\n[^#\$]*[#\$] $} {
+          puts "✅ Login succeeded for $username"
+          send "exit\r"
+        }
+        "Login incorrect" {
+          puts "❌ Login failed for $username"
+        }
+        timeout {
+          puts "⏱️ Timeout after entering password for $username"
+        }
+      }
+    }
+    "Login incorrect" {
+      puts "❌ Immediate login failure for $username"
+    }
+    timeout {
+      puts "⏱️ Timeout before password prompt for $username"
+    }
+  }
+
+  expect eof
+}
+
