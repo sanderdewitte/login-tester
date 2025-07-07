@@ -1,19 +1,27 @@
 #!/usr/bin/expect -f
 
-log_user 0 ;# Disable all automatic output from spawn
+log_user 0 ;# Suppress all spawn output
 set timeout 5
 
-# User/password pairs to test
-set users {
-  {user1 verysecret123}
-  {user2 verysecret456}
+set input_file "logins"
+
+if {![file exists $input_file]} {
+    puts "ERROR: File '$input_file' not found"
+    exit 1
 }
+
+# Read file line by line
+set fp [open $input_file r]
+set users {}
+while {[gets $fp line] != -1} {
+    lappend users [split $line]
+}
+close $fp
 
 foreach userpass $users {
   lassign $userpass username password
   puts "🔐 Testing login for user: $username"
 
-  # Capture just result, silence the rest
   spawn login $username
 
   expect {
@@ -39,7 +47,4 @@ foreach userpass $users {
       puts "⏱️ Timeout before password prompt for $username"
     }
   }
-
-  expect eof
 }
-
