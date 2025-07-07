@@ -1,6 +1,6 @@
 # Login Tester
 
-This script automates login testing using real user passwords by interacting with the `login` command via `expect`. It is useful for verifying that password hashes written to `/etc/shadow` work as intended.
+This script automates login testing using real user passwords by interacting with the `login` command via `expect`. It is useful for verifying that password hashes written to `/etc/shadow` (for instance by configuration management tools) work as intended.
 
 ## 🔧 Requirements
 
@@ -17,12 +17,15 @@ This script automates login testing using real user passwords by interacting wit
 
 ## 📝 Usage
 
-1. Open `test_logins.exp` and update the `set users` block with the usernames and passwords you want to test:
-   ```tcl
-   set users {
-     {user1 verysecret123}
-     {user2 verysecret456}
-   }
+1. Copy the sample credentials file:
+   ```bash
+   cp logins.sample logins
+   ```
+
+2. Edit the logins file to include your real usernames and passwords (space-separated):
+   ```bash
+   user1 verysecret123
+   user2 verysecret456
    ```
 
 2. Run the script as root:
@@ -43,8 +46,19 @@ This script automates login testing using real user passwords by interacting wit
 ## ⚠️ Notes
 
 - This does **not** change any passwords or system state.
-- This is for **local PAM authentication** only. It does not test SSH, LDAP, or other remote login systems.
-- Passwords are stored in plain text in the script, so use with care and only for trusted environments.
+- This is for **local PAM authentication** only. It does not test SSH, LDAP or other remote login systems.
+- Passwords are stored in plain text in the input file, so use with care and only for trusted environments.
+
+## 🔐 Security
+
+- The real logins file is excluded from Git using .gitignore
+- Never commit sensitive credentials to the repository
+
+## 📁 Files
+
+- test_logins.exp – The main expect script
+- logins.sample – Sample credentials file
+- .gitignore – Excludes logins from version control
 
 ## 📄 License
 
